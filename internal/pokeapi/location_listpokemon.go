@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Client) ListLocationAreaPokemon(areaName string) (RespLocationArea, error) {
-	url := baseURL + "/location-area" + "/" + areaName
+	url := baseURL + "/location-area/" + areaName
 
 	if val, ok := c.cache.Get(url); ok {
 		// fmt.Printf("FOUND IN CACHE | key %s\n", url)
@@ -31,19 +31,19 @@ func (c *Client) ListLocationAreaPokemon(areaName string) (RespLocationArea, err
 	}
 	defer response.Body.Close()
 
-	data, err := io.ReadAll(response.Body)
+	byteData, err := io.ReadAll(response.Body)
 	if err != nil {
 		return RespLocationArea{}, err
 	}
 
 	locationAreaResponse := RespLocationArea{}
-	err = json.Unmarshal(data, &locationAreaResponse)
+	err = json.Unmarshal(byteData, &locationAreaResponse)
 	if err != nil {
 		return RespLocationArea{}, err
 	}
 
 	// add an entry to the cache
-	c.cache.Add(url, data)
+	c.cache.Add(url, byteData)
 
 	return locationAreaResponse, nil
 }

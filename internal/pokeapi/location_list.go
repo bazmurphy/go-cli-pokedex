@@ -35,19 +35,19 @@ func (c *Client) ListLocations(pageURL *string) (RespShallowLocations, error) {
 	}
 	defer response.Body.Close()
 
-	data, err := io.ReadAll(response.Body)
+	byteData, err := io.ReadAll(response.Body)
 	if err != nil {
 		return RespShallowLocations{}, err
 	}
 
 	locationsResponse := RespShallowLocations{}
-	err = json.Unmarshal(data, &locationsResponse)
+	err = json.Unmarshal(byteData, &locationsResponse)
 	if err != nil {
 		return RespShallowLocations{}, err
 	}
 
 	// add an entry to the cache
-	c.cache.Add(url, data)
+	c.cache.Add(url, byteData)
 
 	return locationsResponse, nil
 }
