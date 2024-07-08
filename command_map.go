@@ -15,7 +15,7 @@ func commandMapf(cfg *config) error {
 	cfg.prevLocationsURL = locationsResponse.Previous
 
 	for _, location := range locationsResponse.Results {
-		fmt.Println(location.Name)
+		fmt.Println("-----", location.Name)
 	}
 	return nil
 }
@@ -34,7 +34,7 @@ func commandMapb(cfg *config) error {
 	cfg.prevLocationsURL = locationResponse.Previous
 
 	for _, location := range locationResponse.Results {
-		fmt.Println(location.Name)
+		fmt.Println("-----", location.Name)
 	}
 	return nil
 }
