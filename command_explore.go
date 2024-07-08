@@ -7,12 +7,12 @@ import (
 	"github.com/bazmurphy/go-cli-pokedex/internal/pokeapi"
 )
 
-func commandExplore(cfg *config, parameters []string) error {
-	if len(parameters) == 0 {
+func commandExplore(cfg *config, args ...string) error {
+	if len(args) == 0 {
 		return errors.New("need to provide a location area name")
 	}
 
-	areaName := parameters[0]
+	areaName := args[0]
 
 	fmt.Printf("Exploring %s...\n", areaName)
 
